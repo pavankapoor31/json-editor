@@ -4,4 +4,5 @@ export { default as CodeEditor } from "./CodeEditor/CodeEditor";
 export { default as EditorToolbar } from "./EditorToolbar/EditorToolbar";
 export { default as ErrorDisplay } from "./ErrorDisplay/ErrorDisplay";
 export { default as GenerateFunctionDialog } from "./GenerateFunctionDialog/GenerateFunctionDialog";
+export { default as NavBar } from "./NavBar/NavBar";
 export { default as FunctionBuilder } from "../pages/FunctionBuilder/FunctionBuilder";
