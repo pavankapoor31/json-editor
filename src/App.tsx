@@ -1,13 +1,15 @@
-import Editor from './views/Editor';
+import React from 'react';
+import { FunctionBuilder } from './pages/FunctionBuilder/FunctionBuilder';
+import './index.css';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-0 my-auto">
-        <Editor/>
-      </div>
+    <div className="app-container">
+      <main>
+        <FunctionBuilder />
+      </main>
     </div>
   );
-}
+};
 
 export default App;
