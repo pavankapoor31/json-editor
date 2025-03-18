@@ -2,7 +2,7 @@ import React from 'react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   onClick?: () => void;
-  children: React.ReactNode;
+  children?: React.ReactNode | null;
   className?: string;
   disabled?: boolean;
   type?: 'button' | 'submit' | 'reset';
@@ -27,7 +27,7 @@ const Button: React.FC<ButtonProps> = ({
       type={type}
       {...rest}
     >
-      {children}
+      {children || <></>}
     </button>
   );
 };
