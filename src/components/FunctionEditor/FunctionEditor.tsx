@@ -103,11 +103,12 @@ const FunctionEditor: React.FC<FunctionEditorProps> = ({
                             onChange={handleChange}
                             error={error}
                             height={height}
+                            className='border-b-0 rounded-b-none'
                         />
                     </div>
 
                     {/* Error Display */}
-                    <ErrorDisplay error={error} />
+                    <ErrorDisplay error={error} showInfo />
                 </div>
 
                 {/* Footer with Fixed Buttons */}

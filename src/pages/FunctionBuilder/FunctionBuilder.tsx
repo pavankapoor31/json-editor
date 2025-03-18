@@ -39,7 +39,7 @@ export const FunctionBuilder: React.FC = () => {
   const parsedConfig = functionConfig ? JSON.parse(functionConfig) : null;
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-[#1e1e2e] min-h-screen">
+    <div className="max-w-4xl mx-auto p-6 bg-gray-900 min-h-screen">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-bold text-white">Function Builder</h1>
         <button 

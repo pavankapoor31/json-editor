@@ -10,6 +10,7 @@ interface CodeEditorProps {
     height?: string;
     formatOnBlur?: boolean;
     formatOnSave?: boolean;
+    className?:string
 }
 
 const CodeEditor: React.FC<CodeEditorProps> = ({
@@ -19,6 +20,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
     height = 'auto',
     formatOnBlur = true,
     formatOnSave = true,
+    className=''
 }) => {
     const customTheme = EditorView.theme({
         '&': {
@@ -146,7 +148,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
                 extensions={[json(), customTheme, lintTheme, jsonLinter]}
                 onChange={onChange}
                 theme="dark"
-                className={`text-sm w-full border border-gray-700 border-b-0 rounded-md rounded-b-none overflow-auto ${error ? 'border-red-700' : 'border-green-500'}`}
+                className={`text-sm w-full border border-gray-700 rounded-md  overflow-auto ${className} ${error ? 'border-red-700' : 'border-green-500'}`}
                 height={height}
             />
         </div>
