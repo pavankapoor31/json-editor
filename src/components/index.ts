@@ -6,3 +6,4 @@ export { default as ErrorDisplay } from "./ErrorDisplay/ErrorDisplay";
 export { default as GenerateFunctionDialog } from "./GenerateFunctionDialog/GenerateFunctionDialog";
 export { default as NavBar } from "./NavBar/NavBar";
 export { default as FunctionBuilder } from "../pages/FunctionBuilder/FunctionBuilder";
+export { default as FunctionCard } from "./FunctionCard/FunctionCard";

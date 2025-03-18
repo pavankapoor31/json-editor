@@ -1,55 +1,61 @@
-// useFunctionEditor.ts
 import { useState, useCallback } from 'react';
+import { validateJson } from '../utils/jsonUtils';
 
-export const useFunctionEditor = (initialValue: string, onChange?: (value: string) => void) => {
-    const [value, setValue] = useState(initialValue);
-    const [error, setError] = useState<string | null>(null);
-    const [showToast, setShowToast] = useState(false);
+interface UseFunctionEditorProps {
+  initialValue: string;
+  onChange?: (value: string, error?: string|null) => void; // Updated to match FunctionEditorProps
+}
 
-    const validateJson = useCallback((jsonString: string): boolean => {
-        try {
-            JSON.parse(jsonString);
-            setError(null);
-            return true;
-        } catch (e) {
-            if (e instanceof Error) {
-                setError(e.message);
-            }
-            return false;
-        }
-    }, []);
+export const useFunctionEditor = ({ initialValue, onChange }: UseFunctionEditorProps) => {
+  const [value, setValue] = useState<string>(initialValue);
+  const [error, setError] = useState<string | null>(null);
+  const [showToast, setShowToast] = useState<boolean>(false);
 
-    const handleChange = useCallback((newValue: string) => {
-        setValue(newValue);
-        validateJson(newValue);
-        if (onChange) onChange(newValue);
-    }, [onChange, validateJson]);
+  const handleChange = useCallback(
+    (newValue: string) => {
+      setValue(newValue);
+      const { isValid, error: validationError } = validateJson(newValue);
+      setError(validationError);
+      if (onChange) onChange(newValue, validationError); // Pass error if it exists
+    },
+    [onChange]
+  );
 
-    const handleExampleChange = useCallback((selectedValue: string) => {
-        setValue(selectedValue);
-        validateJson(selectedValue);
-        if (onChange) onChange(selectedValue);
-    }, [onChange, validateJson]);
+  const handleExampleChange = useCallback(
+    (selectedValue: string) => {
+      setValue(selectedValue);
+      const { isValid, error: validationError } = validateJson(selectedValue);
+      setError(validationError);
+      if (onChange) onChange(selectedValue, validationError);
+    },
+    [onChange]
+  );
 
-    const handleSave = useCallback((onSave?: (value: string) => void) => {
-        if (validateJson(value) && onSave) {
-            onSave(value);
-        } else {
-            setShowToast(true);
-        }
-    }, [value, validateJson]);
-
-    const closeToast = useCallback(() => {
+  const handleSave = useCallback(
+    (onSave?: (value: string) => void) => {
+      const { isValid, error: validationError } = validateJson(value);
+      if (isValid && onSave) {
+        onSave(value);
         setShowToast(false);
-    }, []);
+      } else {
+        setError(validationError);
+        setShowToast(true);
+      }
+    },
+    [value]
+  );
 
-    return {
-        value,
-        error,
-        showToast,
-        handleChange,
-        handleExampleChange,
-        handleSave,
-        closeToast
-    };
+  const closeToast = useCallback(() => {
+    setShowToast(false);
+  }, []);
+
+  return {
+    value,
+    error,
+    showToast,
+    handleChange,
+    handleExampleChange,
+    handleSave,
+    closeToast,
+  };
 };

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { CodeEditor } from '../../components';
 import { ErrorDisplay } from '../../components';
-
-const JsonLinter: React.FC = () => {
-  const [value, setValue] = useState<string>('{ }');
+interface JsonLinterProps {
+    initialValue?: string;
+}
+const JsonLinter: React.FC<JsonLinterProps> = ({initialValue}) => {
+  const [value, setValue] = useState<string>(initialValue || '{ }');
   const [error, setError] = useState<string | null>(null);
 
   const validateJson = (jsonString: string) => {
