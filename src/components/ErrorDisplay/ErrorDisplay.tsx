@@ -3,7 +3,7 @@ import React from 'react';
 import { AlertCircle, Info } from 'lucide-react';
 
 interface ErrorDisplayProps {
-    error: string | null;
+    error: string | null | undefined;
     showInfo:boolean
 }
 
