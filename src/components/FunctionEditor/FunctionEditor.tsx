@@ -10,7 +10,7 @@ import { generateJSON } from '../../api/jsonApis';
 
 interface FunctionEditorProps {
     initialValue?: string;
-    onChange?: (value: string, error?: string) => void;
+    onChange?: (value: string, error?: string | null | undefined) => void;
     onSave?: (value: string) => void;
     onCancel?: () => void;
     height?: string;
@@ -43,8 +43,8 @@ const FunctionEditor: React.FC<FunctionEditorProps> = ({
     const handleCreateFunction = (description: string) => {
         setIsGenerateOpen(false);
         setLoading(true);
-        generateJSON(description).then((response:any) => {
-            const newValue = JSON.parse(JSON.stringify(response.agent_config), null, 2);
+        generateJSON(description).then((response: any) => {
+            const newValue = JSON.stringify(response.data.agent_config, null, 2);
             handleChange(newValue);
             setIsGenerateOpen(false);
         }).catch((error) => {
